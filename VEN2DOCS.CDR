@@ -1,0 +1,70 @@
+par cDstDir cSrcDir
+
+code ?? [VEN2DOCS v1.1 (c) Copyright United Construction Pty Ltd, 1993.]
+code if pcount() < 2
+code ? [Syntax:]
+code ? [       VEN2DOCS destination_path\ source_path\]
+code quit
+code end
+code if right(cDstDir,1) != "\"
+code ? [destination_path needs a trailing backslash]
+code quit
+code end
+code if right(cSrcDir,1) != "\"
+code ? [source_path needs a trailing backslash]
+code quit
+code end
+code if !file(cDstDir+"*.*")
+code ? cDstDir," not found"
+code quit
+code end
+code if !file(cSrcDir+"*.*")
+code ? cSrcDir," not found"
+code quit
+code end
+
+
+into (cDstDir+"drawing.dbf") put (cSrcDir+"drawing.dbf")
+rep draw_no with drawing
+rep distcode with order
+rep equip_no with tag_no
+rep client_no with client_no
+rep title with title
+rep rev_no with revision
+rep remarks with comments
+rep rev_date with received
+
+into (cDstDir+"distname") (cSrcDir+"orders")
+rep distcode with order
+rep descript descript
+
+into (cDstDir+"distcode") put (cSrcDir+"distcode")
+rep compcode with compcode
+rep distcode with order
+rep fs_copy with fs_Copy
+rep a3_copy with a3_copy
+
+into (cDstDir+"company") put (cSrcDir+"company")
+rep compcode with compcode
+rep name with name
+rep street with street
+rep town with town
+rep attention with attention
+rep telephone with telephone
+rep fs_copy with fs_Copy
+rep a3_copy with a3_copy
+rep dist with dist
+rep selc with selc
+
+into (cDstDir+"rev") put (cSrcDir+"history")
+rep draw_no with drawing
+rep rev_no with revision
+rep rev_date with received
+rep remarks with comments
+
+into (cDstDir+"issue") put (cSrcDir+"issue")
+rep issue with issue
+rep draw_no with drawing
+rep rev_no with revision
+rep selc with selc
+

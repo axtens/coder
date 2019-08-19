@@ -1,0 +1,39 @@
+par cDstDir cSrcDir
+
+code ?? [XSXFER v1.0 (c) Copyright United Construction Pty Ltd, 1993.]
+code if pcount() < 2
+code ? [Syntax:]
+code ? [       XSXFER destination_path\ source_path\]
+code quit
+code end
+code if right(cDstDir,1) != "\"
+code ? [destination_path needs a trailing backslash]
+code quit
+code end
+code if right(cSrcDir,1) != "\"
+code ? [source_path needs a trailing backslash]
+code quit
+code end
+code if !file(cDstDir+"*.*")
+code ? cDstDir," not found"
+code quit
+code end
+code if !file(cSrcDir+"*.*")
+code ? cSrcDir," not found"
+code quit
+code end
+
+
+into (cDstDir+"drawing.dbf") put (cSrcDir+"drawing.dbf")
+code set filter to "XS" $ drawing
+rep draw_no with drawing
+rep distcode with order
+rep equip_no with tag_no
+rep client_no with client_no
+rep title with title
+rep rev_no with revision
+rep remarks with comments
+rep rev_date with received
+code dele all for "XS" $ drawing
+code pack
+
